@@ -85,6 +85,6 @@ var mongoApi = {
   }
 };
 
-mongoApi.initialize(require('../config'));
+mongoApi.initialize(require(__dirname + '/../config'));
 module.exports = mongoApi;
 
