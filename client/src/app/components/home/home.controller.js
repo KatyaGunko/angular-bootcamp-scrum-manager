@@ -11,10 +11,6 @@
     var vm = this;
 
     vm.currentUser = usersDataService.getCurrentUser();
-
-    if ( !vm.currentUser.id ) {
-      $state.go('login')
-    }
   }
 
 })();

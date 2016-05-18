@@ -15,7 +15,11 @@
         controllerAs: 'home',
         data: {
           title: 'home_title',
-          cssClass: 'home'
+          cssClass: 'home',
+          permissions: {
+            only: ['user'],
+            redirectTo: 'login'
+          }
         }
       });
   }

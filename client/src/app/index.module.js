@@ -3,7 +3,7 @@
 
   angular
     .module('app', [
-      'ngAnimate', '' +
+      'ngAnimate',
       'ngCookies',
       'ngSanitize',
       'ngMessages',
@@ -11,6 +11,8 @@
       'ui.router',
       'ui.bootstrap',
       'toastr',
+      'permission',
+      'permission.ui',
       'app.common',
       'app.auth',
       'app.home'

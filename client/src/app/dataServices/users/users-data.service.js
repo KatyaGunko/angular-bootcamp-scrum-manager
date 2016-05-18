@@ -6,25 +6,30 @@
    */
 
   /** @ngInject */
-  angular.module('app').service('usersDataService' ,function (User, $localstorage) {
+  angular.module('app').service('usersDataService' ,function ($rootScope, User, $localstorage) {
 
     var self = this;
-    var currentUser = undefined;
+    self.currentUser = undefined;
 
 
     self.getCurrentUser = function(){
 
-      if (!currentUser) {
+      if (!self.currentUser || !self.currentUser.id) {
         var userData = $localstorage.getObject('SCRUM_user');
 
-        currentUser = new User(userData);
+        self.currentUser = new User(userData);
+        $rootScope.$emit('user-logged-in');
       }
 
-      return currentUser;
+      return self.currentUser;
     };
 
-    self.setCurrentUser = function() {
-      console.log('set as current user');
+    self.setCurrentUser = function(user) {
+      self.currentUser.id = user.id || '';
+      self.currentUser.firstName = user.firstName || '';
+      self.currentUser.lastName = user.lastName || '';
+      self.currentUser.email = user.email || '';
+      self.currentUser.admin = user.admin || false;
     }
 
   });

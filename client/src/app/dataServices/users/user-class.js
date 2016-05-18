@@ -79,6 +79,8 @@
       console.log('logging out');
 
       this.unsetAsCurrentUser();
+
+      $rootScope.$emit('user-logged-out');
     };
 
     User.prototype.setAsCurrentUser = function(){

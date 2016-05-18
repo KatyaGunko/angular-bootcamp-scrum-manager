@@ -10,6 +10,7 @@
 
     var vm = this;
 
+    usersDataService.getCurrentUser().doLogout();
     vm.user = usersDataService.getCurrentUser();
     vm.pageData = {
       confirmPassword: ''

@@ -29,11 +29,46 @@ $icon-font-path: "../../bower_components/bootstrap-sass/assets/fonts/bootstrap/"
 
 body {
   background: #eee !important;
+  color: #2c2c2c;
+
+  .navbar-inverse {
+    background-color: rgba(34, 34, 34, 0.17);
+    border-color: rgba(9, 9, 9, 0.16);
+
+    .navbar-nav > .active > a, .navbar-nav > .active > a:hover, .navbar-nav > .active > a:focus {
+      color: #fff;
+      background-color: rgba(9, 9, 9, 0.11);
+    }
+
+    .navbar-brand,
+    .navbar-nav > li > a {
+      color: #636363;
+    }
+  }
+}
+
+.main-content {
+  margin-top: 80px;
+}
+
+.jumbotron {
+  background-color: #ccc;
+  border: 1px solid rgba(9, 9, 9, 0.16);
+
+  h2 {
+    color: #696969;
+  }
 }
 
 .wrapper {
   margin-top: 80px;
   margin-bottom: 80px;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #5BA1DC;
+  border: none;
 }
 
 /**
