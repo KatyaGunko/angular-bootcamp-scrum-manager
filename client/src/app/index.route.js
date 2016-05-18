@@ -2,19 +2,11 @@
   'use strict';
 
   angular
-    .module('client')
+    .module('app')
     .config(routerConfig);
 
   /** @ngInject */
-  function routerConfig($stateProvider, $urlRouterProvider) {
-    $stateProvider
-      .state('home', {
-        url: '/',
-        templateUrl: 'app/main/main.html',
-        controller: 'MainController',
-        controllerAs: 'main'
-      });
-
+  function routerConfig($urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
   }
 

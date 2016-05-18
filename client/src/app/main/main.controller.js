@@ -2,38 +2,20 @@
   'use strict';
 
   angular
-    .module('client')
+    .module('app')
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout, webDevTec, toastr) {
+  function MainController($rootScope, $state) {
     var vm = this;
 
-    vm.awesomeThings = [];
-    vm.classAnimation = '';
-    vm.creationDate = 1463506707917;
-    vm.showToastr = showToastr;
 
-    activate();
+    $rootScope.$on('user-logged-in', function(){
+      $state.go('home');
+    });
 
-    function activate() {
-      getWebDevTec();
-      $timeout(function() {
-        vm.classAnimation = 'rubberBand';
-      }, 4000);
-    }
-
-    function showToastr() {
-      toastr.info('Fork <a href="https://github.com/Swiip/generator-gulp-angular" target="_blank"><b>generator-gulp-angular</b></a>');
-      vm.classAnimation = '';
-    }
-
-    function getWebDevTec() {
-      vm.awesomeThings = webDevTec.getTec();
-
-      angular.forEach(vm.awesomeThings, function(awesomeThing) {
-        awesomeThing.rank = Math.random();
-      });
-    }
+    $rootScope.$on('user-logged-out', function(){
+      $state.go('login');
+    });
   }
 })();
