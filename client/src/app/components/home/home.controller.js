@@ -18,14 +18,15 @@
       myCustomModal.showModal({
         templateUrl: "./app/components/home/partials/modal.tmpl.html",
         controller: "ModalController",
+        controllerAs: 'modal',
         parentScope: $scope,
         resolve: {
-          one: function () {
+          projectName: function () {
             var one = $q.defer();
 
             $timeout(function () {
-              one.resolve("one done");
-            }, 0);
+              one.resolve("My new project");
+            }, 1000);
 
             return one;
           },
@@ -39,15 +40,18 @@
             return two;
           }
         }
+      }).then(function(modal) {
+
+        modal.close.then(function(result) {
+          result ? alert('new project ' + result + ' was created!') : '';
+        });
       });
     }
   }
 
   angular
-    .module('app.home').controller('ModalController', function($scope, one, two) {
-
-      console.log(one);
-      console.log(two);
+    .module('app.home').controller('ModalController', function($scope, projectName, two) {
+      $scope.projectName = projectName;
   });
 
 })();

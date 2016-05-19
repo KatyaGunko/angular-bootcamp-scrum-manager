@@ -16,10 +16,10 @@
         data: {
           title: 'home_title',
           cssClass: 'home',
-          permissions: {
-            only: ['user'],
-            redirectTo: 'login'
-          }
+          //permissions: {
+          //  only: ['user'],
+          //  redirectTo: 'login'
+          //}
         }
       });
   }

@@ -1,10 +1,20 @@
 .custom-modal {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: rgba(255,255,255,.7);
   color: #2c2c2c;
+
+  z-index: 10000000;
+
+  div{
+    width: 400px;
+    padding: 50px;
+    margin: 200px auto;
+    background-color: #fff;
+    color: #2c2c2c;
+  }
 }
 

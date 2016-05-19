@@ -1,6 +1,6 @@
 (function() {
   'use strict';
- 
+
   angular
     .module('app')
     .controller('MainController', MainController);
@@ -20,7 +20,7 @@
       usersDataService.setCurrentUser({});
 
       if ($state.current.name !== 'signup' && $state.current.name !== 'login') {
-        $state.go('login');
+        //$state.go('login');
       }
     });
   }
