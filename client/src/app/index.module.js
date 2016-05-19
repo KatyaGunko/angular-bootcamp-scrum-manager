@@ -13,6 +13,7 @@
       'toastr',
       'permission',
       'permission.ui',
+      'angularModalService',
       'app.common',
       'app.auth',
       'app.home'
