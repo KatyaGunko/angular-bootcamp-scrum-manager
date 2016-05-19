@@ -1,4 +1,4 @@
-(function() {
+ (function() {
   'use strict';
 
   /**
@@ -61,10 +61,7 @@
 
       request.then(function (response) {
         if (response.status === 201) {
-          console.log('logging in');
-          userObj.setAsCurrentUser();
-
-          $rootScope.$emit('user-logged-in');
+          userObj.doLogin()
           return userObj;
         } else {
           return $q.reject(response);
@@ -90,10 +87,7 @@
 
     User.prototype.unsetAsCurrentUser = function(){
 
-      $localstorage.setObject('SCRUM_user', '');
-
-      $rootScope.$emit('user-logged-out');
-
+      $localstorage.setObject('SCRUM_user', {});
     };
 
     User.prototype.ifCurrentUser = function(){
