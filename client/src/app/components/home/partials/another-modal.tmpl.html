@@ -1,0 +1,20 @@
+<div id="another-custom-modal">
+  <h1>Hello, I'm another custom modal!</h1>
+  <form class="form-create-project">
+    <h2 class="form-create-project-heading">Create project</h2>
+    <label for="projectName" class="sr-only">Project name</label>
+    <input
+      type="text"
+      id="projectName"
+      class="form-control"
+      placeholder="Project Name"
+      ng-model="projectName"
+      minlength="3"
+      maxlength="254"
+      required
+      autofocus>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="closeModal(projectName)">Create project</button>
+    <a class="btn btn-link btn-block" ng-click="closeModal()">Cancel</a>
+  </form>
+</div>

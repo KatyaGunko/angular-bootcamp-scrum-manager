@@ -13,12 +13,12 @@
     vm.currentUser = usersDataService.getCurrentUser();
 
     vm.showModal = showModal;
+    vm.showAnotherModal = showAnotherModal;
 
     function showModal(){
       myCustomModal.showModal({
         templateUrl: "./app/components/home/partials/modal.tmpl.html",
         controller: "ModalController",
-        controllerAs: 'modal',
         parentScope: $scope,
         resolve: {
           projectName: function () {
@@ -47,10 +47,49 @@
         });
       });
     }
+    function showAnotherModal(){
+      myCustomModal.showModal({
+        templateUrl: "./app/components/home/partials/another-modal.tmpl.html",
+        controller: "AnotherModalController",
+        parentScope: $scope,
+        resolve: {
+          projectName: function () {
+            var one = $q.defer();
+
+            $timeout(function () {
+              one.resolve("My new project");
+            }, 0);
+
+            return one;
+          },
+          two: function () {
+            var two = $q.defer();
+
+            $timeout(function () {
+              two.resolve("two done");
+            }, 2000);
+
+            return two;
+          }
+        }
+      }).then(function(modal) {
+
+        modal.close.then(function(result) {
+          result ? alert('new project ' + result + ' was created!') : '';
+        });
+      }).catch(function(error){
+        console.log(error);
+      });
+    }
   }
 
   angular
     .module('app.home').controller('ModalController', function($scope, projectName, two) {
+      $scope.projectName = projectName;
+  });
+
+  angular
+    .module('app.home').controller('AnotherModalController', function($scope, projectName, two) {
       $scope.projectName = projectName;
   });
 
