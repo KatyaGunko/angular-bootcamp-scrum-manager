@@ -6,7 +6,7 @@
     .controller('HomeController', HomeController);
 
   /** @ngInject */
-  function HomeController($scope, usersDataService, myCustomModal, $q, $timeout) {
+  function HomeController($scope, usersDataService, myCustomModal, $q) {
 
     var vm = this;
 
@@ -14,14 +14,14 @@
 
     vm.showModal = showModal;
     vm.showAnotherModal = showAnotherModal;
-
+ 
     function showModal(){
       myCustomModal.showModal({
         templateUrl: "./app/components/home/partials/modal.tmpl.html",
         controller: "ModalController",
         parentScope: $scope,
         resolve: {
-          projectName: function () {
+          projectName: function ($timeout, $q) {
             var one = $q.defer();
 
             $timeout(function () {
@@ -30,7 +30,7 @@
 
             return one;
           },
-          two: function () {
+          two: function ($timeout, $q) {
             var two = $q.defer();
 
             $timeout(function () {
@@ -41,28 +41,30 @@
           }
         }
       }).then(function(modal) {
-
         modal.close.then(function(result) {
           result ? alert('new project ' + result + ' was created!') : '';
         });
+        return;
+      }).catch(function(error){
+        console.log(error);
       });
     }
+
     function showAnotherModal(){
       myCustomModal.showModal({
         templateUrl: "./app/components/home/partials/another-modal.tmpl.html",
         controller: "AnotherModalController",
         parentScope: $scope,
         resolve: {
-          projectName: function () {
+          projectName: function ($timeout, $q) {
             var one = $q.defer();
-
             $timeout(function () {
               one.resolve("My new project");
             }, 0);
 
             return one;
           },
-          two: function () {
+          two: function ($timeout, $q) {
             var two = $q.defer();
 
             $timeout(function () {

@@ -7,7 +7,7 @@
     .factory('myCustomModal', myCustomModal);
 
   /** @ngInject */
-  function myCustomModal($document, $compile, $controller, $rootScope, $q, $templateRequest, $timeout) {
+  function myCustomModal($document, $compile, $controller, $rootScope, $q, $timeout, $templateRequest, $injector) {
 
     var body = $document.find('body')[0];
 
@@ -89,7 +89,7 @@
             //  If we have provided any resolve params, resolving them
             var arrayToResolve = [];
             for(var key in options.resolve) {
-              arrayToResolve.push(options.resolve[key]().promise);
+              arrayToResolve.push($injector.invoke(options.resolve[key]).promise);
             }
             var resolve = $q.all(arrayToResolve);
 
@@ -138,6 +138,7 @@
 
       function getModalTemplate(templateUrl) {
         var deferred = $q.defer();
+
         if (templateUrl) {
           $templateRequest(templateUrl, true)
             .then(function(template) {
