@@ -30,16 +30,42 @@
         //  Create a deferred we'll resolve when the modal is ready.
         var deferred = $q.defer();
 
-        //  Check if there is a controller name
         var controllerName = options.controller;
+
+        // array of params to resolve
+        var arrayToResolve = [];
+
+        // array of promises to resolve
+        var resolvePromises;
+
+        // future scope params
+        var scopeParams = {};
+
+        //  Check if there is a controller name
         if (!controllerName) {
           deferred.reject("No controller has been specified.");
           return deferred.promise;
         }
 
-        //  Get the html of the template.
-        getModalTemplate(options.templateUrl)
-          .then(function(template) {
+        //  If we have provided any resolve params, resolving them
+        for(var key in options.resolve) {
+          arrayToResolve.push($injector.invoke(options.resolve[key]).promise);
+        }
+        // resolving all promises
+        resolvePromises = $q.all(arrayToResolve);
+
+        resolvePromises
+          .then(function(resolvedItems){
+            //adding all params to scopeParams
+            var index = 0;
+            for(var key in options.resolve) {
+              scopeParams[key] = resolvedItems[index++];
+            }
+            //  Get the html of the template.
+            return getModalTemplate(options.templateUrl);
+          })
+          .then(function(template){
+
             // our future modal element
             var modalElement;
 
@@ -72,7 +98,6 @@
                 modalScope.$destroy();
 
                 //  clearing up variables
-                inputs.close = null;
                 deferred = null;
                 closeDeferred = null;
                 inputs = null;
@@ -81,55 +106,34 @@
               }, delay);
             };
 
-            // adding scope to injector params
-            inputs = {
-              $scope: modalScope
+            scopeParams.$scope = modalScope;
+
+            //compiling element
+            var linkFn = $compile(template);
+            modalElement = addModalWrapper(linkFn(modalScope));
+            // adding $element param if ne will need to inject it to controller
+            scopeParams.$element = modalElement;
+
+            // creating controller for modal
+            var modalController = $controller(options.controller, scopeParams);
+
+            // adding modal to DOM
+            appendModal(modalElement);
+
+            //  We now have a modal object...
+            var modal = {
+              controller: modalController,
+              scope: modalScope,
+              element: modalElement,
+              close: closeDeferred.promise,
+              closed: closedDeferred.promise
             };
 
-            //  If we have provided any resolve params, resolving them
-            var arrayToResolve = [];
-            for(var key in options.resolve) {
-              arrayToResolve.push($injector.invoke(options.resolve[key]).promise);
-            }
-            var resolve = $q.all(arrayToResolve);
-
-            // after all promises are resolved draw the modal
-            resolve.then(function(resolvedValues){
-
-              // adding all params to inputs
-              var index = 0;
-              for(var key in options.resolve) {
-                inputs[key] = resolvedValues[index++];
-              }
-
-              //compiling element
-              var linkFn = $compile(template);
-              modalElement = addModalWrapper(linkFn(modalScope));
-              // adding $element param if ne will need to inject it to controller
-              inputs.$element = modalElement;
-
-              // creating controller for modal
-              var modalController = $controller(options.controller, inputs);
-
-              // adding modal to DOM
-              appendModal(modalElement);
-
-              //  We now have a modal object...
-              var modal = {
-                controller: modalController,
-                scope: modalScope,
-                element: modalElement,
-                close: closeDeferred.promise,
-                closed: closedDeferred.promise
-              };
-
-              //  ...which is passed to the caller via the promise.
-              deferred.resolve(modal);
-
-            });
+            //  ...which is passed to the caller via the promise.
+            deferred.resolve(modal);
 
           })
-          .then(null, function(error) { // 'catch' doesn't work in IE8.
+          .catch(function(error){
             deferred.reject(error);
           });
 

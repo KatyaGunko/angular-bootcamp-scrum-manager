@@ -14,7 +14,15 @@
 
     vm.showModal = showModal;
     vm.showAnotherModal = showAnotherModal;
- 
+
+    var dropdown = document.getElementsByClassName('dropdown-menu')[0];
+    $scope.showDropdown = function(){
+      dropdown.style.display === 'block' ? dropdown.style.display = 'none' : dropdown.style.display = 'block';
+    };
+    $scope.hideDropdown = function(){
+      dropdown.style.display = 'none';
+    };
+
     function showModal(){
       myCustomModal.showModal({
         templateUrl: "./app/components/home/partials/modal.tmpl.html",
