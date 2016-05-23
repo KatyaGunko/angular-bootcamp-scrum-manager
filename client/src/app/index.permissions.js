@@ -6,7 +6,7 @@
     .run(permissionsConfig);
 
   /** @ngInject */
-  function permissionsConfig(PermissionStore, RoleStore, usersDataService) {
+  function permissionsConfig(PermissionStore, RoleStore, User) {
 
     /**
      * permissions definition
@@ -15,13 +15,13 @@
     // checks if user logged in
     PermissionStore
       .definePermission('user-logged-in', function () {
-        return !!usersDataService.getCurrentUser().id;
+        return !!User.getCurrentUser().id;
       });
 
     // checks if user is admin
     PermissionStore
       .definePermission('user-is-admin', function () {
-        return !!usersDataService.getCurrentUser().admin;
+        return !!User.getCurrentUser().admin;
       });
 
 

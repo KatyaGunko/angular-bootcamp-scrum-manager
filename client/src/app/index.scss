@@ -45,6 +45,20 @@ body {
       color: #636363;
     }
   }
+
+  .loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding-bottom: 200px;
+    background: rgba(255, 255, 255, .7);
+    color: #222222;
+    font-size: 16px;
+    text-align: center;
+
+  }
 }
 
 .custom-modal {

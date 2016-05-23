@@ -6,12 +6,12 @@
     .controller('LoginController', LoginController);
 
   /** @ngInject */
-  function LoginController(usersDataService) {
+  function LoginController(User) {
 
     var vm = this;
 
-    usersDataService.getCurrentUser().doLogout();
-    vm.user = usersDataService.getCurrentUser();
+    User.getCurrentUser().doLogout();
+    vm.user = User.getCurrentUser();
 
   }
 

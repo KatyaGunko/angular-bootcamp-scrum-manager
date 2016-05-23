@@ -10,7 +10,7 @@
     $stateProvider
       .state('login', {
         url: '/login',
-        templateUrl: 'app/components/auth/login/login.tmpl.html',
+        templateUrl: 'app/auth/login/login.tmpl.html',
         controller: 'LoginController',
         controllerAs: 'login',
         data: {

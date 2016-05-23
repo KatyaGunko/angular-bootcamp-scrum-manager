@@ -10,7 +10,7 @@
     $stateProvider
       .state('home', {
         url: '/',
-        templateUrl: 'app/components/home/home.tmpl.html',
+        templateUrl: 'app/home/home.tmpl.html',
         controller: 'HomeController',
         controllerAs: 'home',
         data: {

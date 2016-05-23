@@ -6,11 +6,11 @@
     .controller('HomeController', HomeController);
 
   /** @ngInject */
-  function HomeController($scope, usersDataService, myCustomModal, $q) {
+  function HomeController($scope, User, myCustomModal, $q) {
 
     var vm = this;
 
-    vm.currentUser = usersDataService.getCurrentUser();
+    vm.currentUser = User.getCurrentUser();
 
     vm.showModal = showModal;
     vm.showAnotherModal = showAnotherModal;
@@ -25,7 +25,7 @@
 
     function showModal(){
       myCustomModal.showModal({
-        templateUrl: "./app/components/home/partials/modal.tmpl.html",
+        templateUrl: "./app/home/partials/modal.tmpl.html",
         controller: "ModalController",
         parentScope: $scope,
         resolve: {
@@ -60,7 +60,7 @@
 
     function showAnotherModal(){
       myCustomModal.showModal({
-        templateUrl: "./app/components/home/partials/another-modal.tmpl.html",
+        templateUrl: "./app/home/partials/another-modal.tmpl.html",
         controller: "AnotherModalController",
         parentScope: $scope,
         resolve: {

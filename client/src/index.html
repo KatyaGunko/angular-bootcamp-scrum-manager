@@ -35,13 +35,15 @@
             <li class="active"><a href="#">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li ng-click="main.currentUser.doLogout()"><a href="#">Log out</a></li>
+            <li><a href="#login">Log out</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
 
     <div ui-view class="main-content"></div>
+
+    <div ng-show="main.isLoading" class="loader">Loading...</div>
 
     <!-- build:js(src) scripts/vendor.js -->
     <!-- bower:js -->

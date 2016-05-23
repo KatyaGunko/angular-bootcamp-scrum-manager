@@ -6,12 +6,12 @@
     .controller('SignupController', SignupController);
 
   /** @ngInject */
-  function SignupController(usersDataService) {
+  function SignupController(User) {
 
     var vm = this;
-    
-    usersDataService.getCurrentUser().doLogout();
-    vm.user = usersDataService.getCurrentUser();
+
+    User.getCurrentUser().doLogout();
+    vm.user = User.getCurrentUser();
     vm.pageData = {
       confirmPassword: ''
     };
